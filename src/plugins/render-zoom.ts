@@ -161,18 +161,7 @@ function onDraw(e, data: SpriteSpin.Data) {
     y = state.currentY = 0.5
   }
 
-  if (source) {
-    // scale up from [0:1] to [0:100] range
-    x = Math.floor(x * 100)
-    y = Math.floor(y * 100)
-
-    // update background image and position
-    state.stage.css({
-      'background-repeat'   : 'no-repeat',
-      'background-image'    : `url('${source}')`,
-      'background-position' : `${x}% ${y}%`
-    })
-  } else if (spec.sheet && spec.sprite) {
+  if (spec.sheet && spec.sprite) {
     const sprite = spec.sprite
     const sheet = spec.sheet
     const src = data.source[sheet.id]
@@ -190,7 +179,18 @@ function onDraw(e, data: SpriteSpin.Data) {
       '-o-background-size'      : `${width}px ${height}px`, /* Opera 9.5 */
       'background-size'         : `${width}px ${height}px`  /* Chrome, Firefox 4+, IE 9+, Opera, Safari 5+ */
     })
-  }
+  } else if (source) {
+    // scale up from [0:1] to [0:100] range
+    x = Math.floor(x * 100)
+    y = Math.floor(y * 100)
+
+    // update background image and position
+    state.stage.css({
+      'background-repeat'   : 'no-repeat',
+      'background-image'    : `url('${source}')`,
+      'background-position' : `${x}% ${y}%`
+    })
+  }  
 }
 
 function toggleZoom(data) {
